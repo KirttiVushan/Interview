@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title></title>
+    <style>
+  h2 {
+      color:#DA9342;
+  }
+  label
+  {
+      color: #7380C4;
+      font-weight:bold;
+  }
+
+  #divide {
+      width: 100%;
+	  margin: 0 auto;
+      background-color: #7380C4;
+	  height: 50px;
+  }
+  hr {
+      border-top: 1px solid #7380C4;
+  }
+
+
+
+  .menu {
+      border-bottom: 1px solid #e1e4e8;
+      margin-bottom: 16px;
+      margin-top: 1px;
+      
+  }
+
+  .tabs {
+    display: flex;
+    margin-bottom: -1px;
+    overflow: auto;
+ }
+
+ #general {
+    
+    border: 1px solid black;
+    border-bottom: 0;
+    display: inline-block;
+    flex-shrink: 0;
+    font-size: 14px;
+    font-weight:bold;
+    line-height: 27px;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: color .2s ;
+    background-color: #fff;
+    border-color: #e1e4e8;
+    color: #7380C4;
+
+ }
+
+ 
+
+ #attachment {
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-bottom: 0;
+    color: #586069;
+    display: inline-block;
+    flex-shrink: 0;
+    font-size: 14px;
+    line-height: 23px;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: color .2s ;
+ }
+
+ #vehicle_type_label:before {
+     content:"*";
+     color:red;
+ }
+
+ #base_km:before {
+     content:"*";
+     color:red;
+ }
+
+ #manufacturer {
+     z-index: 1;
+ }
+
+ #enable_manufacture {
+     z-index:2;
+     position:relative;
+     margin-left:460px;
+     margin-top:-55px;
+     visibility:hidden;
+ }
+
+ #enable_model
+ {
+     z-index:2;
+     position:relative;
+     margin-left:460px;
+     margin-top:-55px;
+     visibility:hidden;
+ }
+
+ #enable_vehicle
+ {
+     z-index:2;
+     position:relative;
+     margin-left:460px;
+     margin-top:-90px;
+     visibility:hidden;
+ }
+
+ #enable_rto
+ {
+     z-index:2;
+     position:relative;
+     margin-left:460px;
+     margin-top:-55px;
+     visibility:hidden;
+ }
+
+ #enable_model_year
+ {
+     z-index:2;
+     position:relative;
+     margin-left:510px;
+     margin-top:-90px;
+     visibility:hidden;
+ }
+
+ #enable_fuel
+ {
+     z-index:2;
+     position:relative;
+     margin-left:510px;
+     margin-top:-90px;
+     visibility:hidden;
+ }
+
+
+ 
+  </style>
+  </head>
+  
+  <body>
+  <br>
+
+    <div class="menu">
+
+        <div class="tabs">
+
+            <a id="general" href="">General</a>
+            <a id="attachment" href="">Attachment</a>
+
+        </div>
+
+    </div>
+
+    <div id="divide"></div>
+    
+    <div class="details">
+
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-10">
+            <h2>Vehicle Details</h2>
+            <hr>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+        
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group row">
+                    <label for="sap_code" class="col-sm-2 col-form-label" >SAP Code</label>
+                    <div class="col-sm-10">
+                    <input type="text" name="sap_code" class="form-control" id="sap_code">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="ledger" class="col-sm-2 col-form-label">Ledger Name</label>
+                    <div class="col-sm-10">
+                    <input type="text" name="ledger" class="form-control" id="ledger" value="ADV TO OD09C8553" disabled >
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="manufacturer" class="col-sm-2 col-form-label">Manufacturer</label>
+                    <div class="col-sm-10">
+                    <div class="input-group">
+                    <select id="manufacturer" name="manufacturer" class="form-control">
+                    </button>
+                    <option selected></option>
+                    <option>Mahindra & Mahindra ltd.</option>
+                    </select>
+                    <div class="input-group-btn">
+                    <button class="btn btn-default" type="button">
+                        {% load static %}
+                        <img style="border-radius:5px; margin-top:-5px;" src="{% static 'icon/edit_icon.png' %}" alt="" width="30px" height="35px">
+                        
+                    </button>
+                    </div>
+                    </div>
+                    </div>
+                    <button id="enable_manufacture" type="button" class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    
+                </div>
+
+                <div class="form-group row">
+                    <label for="model" class="col-sm-2 col-form-label" >Model</label>
+                    <div class="col-sm-10">
+                    <div class="input-group">
+                    <select name="model" class="form-control" id="model">
+                    <option selected></option>
+                    <option>BOLERO CAMPER GOLD 2WD</option>
+                    </select>
+                    <div class="input-group-btn">
+                    <button class="btn btn-default" type="button">
+                        {% load static %}
+                        <img style="border-radius:5px; margin-top:-5px;" src="{% static 'icon/edit_icon.png' %}" alt="" width="30px" height="35px">
+                    </button>
+                    </div>
+                    </div>
+                    </div>
+                    <button id="enable_model" type="button" class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    
+                </div>
+                <div class="form-group row">
+                    <label id="vehicle_type_label" for="vehicle_type" class="col-sm-2 col-form-label" >Vehicle Type</label>
+                    <div class="col-sm-10">
+                    <div class="input-group">
+                    <select name="vehicle_type" class="form-control" id="vehicle_type">
+                    <option selected></option>
+                    <option>CAMPER</option>
+                    </select>
+                    <div class="input-group-btn">
+                    <button class="btn btn-default" type="button">
+                        {% load static %}
+                        <img style="border-radius:5px; margin-top:-5px;" src="{% static 'icon/edit_icon.png' %}" alt="" width="30px" height="35px">
+                        
+                    </button>
+                    </div>
+                    </div>
+                    </div>
+                    <button id="enable_vehicle" type="button" class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    
+                </div>
+                <div class="form-group row">
+                    <label id="base_km" for="base_km" class="col-sm-2 col-form-label" >Base KM</label>
+                    <div class="col-sm-10">
+                    <input type="number" name="base_km" class="form-control" id="base_km">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="rto" class="col-sm-2 col-form-label" >RTO</label>
+                    <div class="col-sm-10">
+                    <div class="input-group">
+                    <select name="rto" class="form-control" id="rto">
+                    <option selected></option>
+                    <option>BARBIL , ODISHA</option>
+                    </select>
+                    <div class="input-group-btn">
+                    <button class="btn btn-default" type="button">
+                        {% load static %}
+                        <img style="border-radius:5px; margin-top:-5px;" src="{% static 'icon/edit_icon.png' %}" alt="" width="30px" height="35px">
+                        
+                    </button>
+                    </div>
+                    </div>
+                    </div>
+                    <button id="enable_rto" type="button" class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    
+                </div>
+                
+            </form>
+            
+            
+        </div>
+    </div>
+
+
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-10">
+            <h2>Engine Details</h2>
+            <hr>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group row">
+                    <label for="model_year" class="col-sm-2 col-form-label" >Model Year</label>
+                    <div class="col-sm-10">
+                    <select name="model_year" class="form-control" id="model_year">
+                    <option selected></option>
+                    <option>2014</option>
+                    </select>
+                    </div>
+                    <button id="enable_model_year" type="button" class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    
+                </div>
+                <div class="form-group row">
+                    <label for="chassis" class="col-sm-2 col-form-label">Chassis No</label>
+                    <div class="col-sm-10">
+                    <input type="text" name="chassis_no" value="MAIRY2GHKE3F38649" class="form-control" id="chassis_no">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="fuel_type" class="col-sm-2 col-form-label">Fuel Type</label>
+                    <div class="col-sm-10">
+                    <select name="fuel_type" class="form-control" id="fuel_type">
+                    <option selected></option>
+                    <option>DIESEL</option>
+                    </select>
+                    </div>
+                    <button id="enable_fuel" type="button" class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    
+                </div>
+                <div class="form-group row">
+                    <label for="old_vehicle_no" class="col-sm-2 col-form-label" >Old Vehicle No</label>
+                    <div class="col-sm-10">
+                    <input type="text" name="old_vehicle" class="form-control" id="old_vehicle">
+                    </div>
+                </div>
+                
+            </form>
+            
+            
+        </div>
+    </div>
+
+
+  <script>
+ 
+ $('#attachment').click(function() {
+      $('#attachment').css({
+          'background-color': '#fff',
+          'border-color': '#e1e4e8',
+          'color': '#7380C4',
+      });
+      $("#general").css({
+          'background-color': 'transparent',
+          'border-color': 'transparent',
+          'color': '#586069;',
+      })
+  });
+
+
+var maufacturer = document.getElementById("manufacturer");
+var enable_manufacture= document.getElementById("enable_manufacture");
+
+disable_field(maufacturer,enable_manufacture);
+enable_field(enable_manufacture,maufacturer);
+
+var model = document.getElementById("model");
+var enable_model= document.getElementById("enable_model");
+
+disable_field(model,enable_model);
+enable_field(enable_model,model);
+
+var vehicle_type = document.getElementById("vehicle_type");
+var enable_vehicle_type= document.getElementById("enable_vehicle");
+
+disable_field(vehicle_type,enable_vehicle);
+enable_field(enable_vehicle,vehicle_type);
+
+var rto = document.getElementById("rto");
+var enable_rto= document.getElementById("enable_rto");
+
+disable_field(rto,enable_rto);
+enable_field(enable_rto,rto);
+
+var model_year = document.getElementById("model_year");
+var enable_model_year= document.getElementById("enable_model_year");
+
+disable_field(model_year,enable_model_year);
+enable_field(enable_model_year,model_year);
+
+var fuel_type = document.getElementById("fuel_type");
+var enable_fuel= document.getElementById("enable_fuel");
+
+disable_field(fuel_type,enable_fuel);
+enable_field(enable_fuel,fuel_type);
+
+
+
+
+// function to disable input fields
+function disable_field(obj,close_btn){
+obj.onchange = function() {
+    if (this.value != "" || this.value.length > 0) {
+        obj.disabled=true;
+        close_btn.style.visibility='visible';
+    }
+}};
+
+function enable_field(btn,obj){
+    btn.onclick = function() {
+        obj.disabled=false;
+        btn.style.visibility='hidden';
+        obj.value="";
+    }
+}
+
+
+  </script>
+  
+  
+    
+  </body>
+</html>
